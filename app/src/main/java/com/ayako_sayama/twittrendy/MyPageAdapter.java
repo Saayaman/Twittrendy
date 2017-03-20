@@ -35,6 +35,7 @@ public class MyPageAdapter extends FragmentPagerAdapter {
     public void addFrag(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
+        notifyDataSetChanged();
     }
 
     @Override

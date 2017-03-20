@@ -1,20 +1,24 @@
 package com.ayako_sayama.twittrendy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.ayako_sayama.twittrendy.utils.Debug;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
+    private String hashWords;
+    private MyPageAdapter myPageAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Debug.Log("MainActivity: This is Read!!!");
-
-        ArrayList<Article> articles = null;
 
 
         viewPager = (ViewPager)findViewById(R.id.myViewPager);
@@ -37,25 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void viewPagerSetup() {
 
-        MyPageAdapter myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
-        myPageAdapter.addFrag(new BaseFragment("ANDROID"), "ANDROID");
-        myPageAdapter.addFrag(new BaseFragment("iOS"), "iOS");
-        myPageAdapter.addFrag(new BaseFragment("WINDOWS"), "WINDOWS");
+        myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
+        myPageAdapter.addFrag(BaseFragment.getInstance("ANDROID"), "ANDROID");
+        myPageAdapter.addFrag(BaseFragment.getInstance("iOS"), "iOS");
+        myPageAdapter.addFrag(BaseFragment.getInstance("WINDOWS"), "WINDOWS");
 
         viewPager.setAdapter(myPageAdapter);
 
-
     }
 
-    private List<Article> myArticles() {
-        List<Article> lists = new ArrayList<>();
-        lists.add(new Article("Icon1","@Saayaman","Dec 25,2000","This is the twitter comment","image.png"));
-        lists.add(new Article("Icon2","@Hondaman","Dec 25,2000","This is the twitter comment","image2.png"));
-        lists.add(new Article("Icon3","@Masaman","Dec 25,2000","This is the twitter comment","image3.png"));
-        lists.add(new Article("Icon4","@Koman","Dec 25,2000","This is the twitter comment","image3.png"));
-        lists.add(new Article("Icon5","@Mitchman","Dec 25,2000","This is the twitter comment","image3.png"));
-        return lists;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,4 +55,52 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+//            case R.id.editTab:
+//                editTab();
+//                return true;
+            case R.id.addTab:
+                addTab();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+//    private void editTab() {
+//
+//    }
+
+    private void addTab() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle("Add Tab");
+        alertDialog.setMessage("Enter keyford for #hashtag");
+        final EditText input = new EditText(this);
+        alertDialog.setView(input);
+
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                hashWords = input.getText().toString();
+                myPageAdapter.addFrag(BaseFragment.getInstance(hashWords), hashWords);
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+
+    }
+
 }
