@@ -1,42 +1,33 @@
 package com.ayako_sayama.twittrendy;
 
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
+
 /**
  * Created by ayako_sayama on 2017-03-14.
  */
 
+@Table
 public class Tab {
 
-    private int id;
-    private String tabName;
-    private String hashTags;
 
-    public Tab(String tabName, String hashTags) {
-        super();
-        this.tabName = tabName;
-        this.hashTags = hashTags;
-    }
+//    public Tab(String tabName, String hashTags) {
+//        super();
+//        this.tabName = tabName;
+//        this.hashTags = hashTags;
+//    }
 
-    public int getId() {
-        return id;
-    }
+    @PrimaryKey(autoincrement = true)
+    public long id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(indexed = true)
+    public String tabName;
 
-    public String getTabName() {
-        return tabName;
-    }
 
-    public void setTabName(String tabName) {
-        this.tabName = tabName;
-    }
-
-    public String getHashTags() {
-        return hashTags;
-    }
-
-    public void setHashTags(String hashTags) {
-        this.hashTags = hashTags;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 }
+
+

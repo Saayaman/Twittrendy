@@ -12,5 +12,3 @@
 .idea/vcs.xml
 app/libs/
 app/src/main/res/values/apiKey.xml
-
-**/strings.xml

@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.ayako_sayama.twittrendy.utils.Debug;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class MyPageAdapter extends FragmentPagerAdapter {
 
     //adding fragments and title method
     public void addFrag(Fragment fragment, String title) {
+        Debug.Log("This is inside AddFrag method: "+title);
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
         notifyDataSetChanged();

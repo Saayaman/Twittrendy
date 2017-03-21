@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private static TabLayout tabLayout;
     private String hashWords;
     private MyPageAdapter myPageAdapter;
+    OrmaDao dao;
 
 
     @Override
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dao = new OrmaDao(getApplicationContext());
 
         Debug.Log("MainActivity: This is Read!!!");
 
@@ -40,9 +42,18 @@ public class MainActivity extends AppCompatActivity {
     private void viewPagerSetup() {
 
         myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
-        myPageAdapter.addFrag(BaseFragment.getInstance("ANDROID"), "ANDROID");
-        myPageAdapter.addFrag(BaseFragment.getInstance("iOS"), "iOS");
-        myPageAdapter.addFrag(BaseFragment.getInstance("WINDOWS"), "WINDOWS");
+
+        Tab_Selector selector = dao.findAll();
+
+//        Tab tab = new Tab();
+//        Debug.Log("TAB NAME: "+ tab.tabName);
+//        myPageAdapter.addFrag(BaseFragment.getInstance((tab.tabName)), (tab.tabName));
+
+        for (Tab tab : selector) {
+            Debug.Log("tabselecter"+tab.tabName);
+
+            myPageAdapter.addFrag(BaseFragment.getInstance((tab.tabName)), (tab.tabName));
+        }
 
         viewPager.setAdapter(myPageAdapter);
 
@@ -88,7 +99,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 hashWords = input.getText().toString();
+
+                Tab tab = new Tab();
+                tab.tabName = hashWords;
+                dao.insert(tab);
+
                 myPageAdapter.addFrag(BaseFragment.getInstance(hashWords), hashWords);
+
                 dialog.cancel();
             }
         });

@@ -34,18 +34,17 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
+        transitive = true;
+    }
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.github.gfx.android.orma:orma:4.2.3'
     testCompile 'junit:junit:4.12'
-
-    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
-        transitive = true;
-    }
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
-        transitive = true;
-    }
+    annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.2.3'
 }
 

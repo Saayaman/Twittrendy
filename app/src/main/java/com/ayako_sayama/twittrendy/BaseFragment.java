@@ -3,6 +3,7 @@ package com.ayako_sayama.twittrendy;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class BaseFragment extends Fragment{
     }
 
     private void setListView() {
+        Log.e("a", "setListView " + title);
         SearchTimeline searchTimeline = new SearchTimeline.Builder()
                 .query("#" + title)
                 .build();
