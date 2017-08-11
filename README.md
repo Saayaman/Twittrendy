@@ -5,3 +5,6 @@
 
 
 This is my personal project where I used twitter api to get feeds with #hashtag.
+
+
+![TwittrendyDemo](https://github.com/Saayaman/ImageStorage/blob/master/Twittrendy.gif)
